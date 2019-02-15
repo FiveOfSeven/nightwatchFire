@@ -1,9 +1,12 @@
+// SEE_TIME is time used for a human to see what nightwatch is doing
+SEE_TIME = 3000;
+
 var conf = require('../../nightwatch.conf.js');
 
 module.exports = {
-  'Demo test GitHub': function (browser) {
+  'Demo test FireDrum': function (browser) {
     browser
-      .url('http://www.github.com/dwyl')   // visit the url
+	  	.url('https://app.firedrumemailmarketing.com/client_admin.jsp?welcome=true&featureCheck=true')
       .waitForElementVisible('body'); // wait for the body to be rendered
       // check if we are seeing the Mobile Version of GitHub
       browser.element('css selector', '.switch-to-desktop', function(result) {
@@ -11,11 +14,16 @@ module.exports = {
           browser.click('.switch-to-desktop')
           .waitForElementVisible('body'); // wait for the body to be rendered
         }
-      });
+      })
+	  .pause(SEE_TIME);
     // part two:
     browser
-      .assert.containsText('body', 'dwyl.com') // assert body contains text
-      .saveScreenshot(conf.imgpath(browser) + 'dwyl.png')
+      .assert.containsText('body', 'Get your message out!') // assert body contains text
+      //.saveScreenshot(conf.imgpath(browser) + 'dwyl.png')
+	  .pause(SEE_TIME)
+	  .click('input[name="username"]')
+	  .pause(SEE_TIME);
+	  .click('input[name="password"]')
       .end();
     }
   };
