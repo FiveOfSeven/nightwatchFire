@@ -1,5 +1,5 @@
 // SEE_TIME is time used for a human to see what nightwatch is doing
-SEE_TIME = 3000;
+SEE_TIME = 1000;
 
 var conf = require('../../nightwatch.conf.js');
 
@@ -21,9 +21,15 @@ module.exports = {
       .assert.containsText('body', 'Get your message out!') // assert body contains text
       //.saveScreenshot(conf.imgpath(browser) + 'dwyl.png')
 	  .pause(SEE_TIME)
-	  .click('input[name="username"]')
-	  .pause(SEE_TIME);
-	  .click('input[name="password"]')
+	  .waitForElementPresent('input[name="username"]', 'carl@paladinarcher.com')
+	  .setValue('input[name="username"]', 'carl@paladinarcher.com')
+	  .pause(SEE_TIME)
+	  .waitForElementPresent('input[tabindex="2"]', 'replace with password')
+	  .setValue('input[tabindex="2"]', 'Three*1415926535')
+	  .pause(SEE_TIME)
+	  .waitForElementPresent('button[name="loginButton"]')
+	  .click('button[name="loginButton"]')
+	  .pause(SEE_TIME * 2)
       .end();
     }
   };
